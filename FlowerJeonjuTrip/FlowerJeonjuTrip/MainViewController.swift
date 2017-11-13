@@ -23,8 +23,6 @@ class MainViewController: UIViewController {
         self.tableViewMain.delegate = self
         self.tableViewMain.dataSource = self
         
-//        self.navigationController?.navigationBar.topItem?.title = "꽃심전주여행"
-        
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true

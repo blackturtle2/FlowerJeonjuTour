@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E440012937EDD2B2EDDE55C /* Pods_FlowerJeonjuTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA7B37BF8130069315A3DEB /* Pods_FlowerJeonjuTrip.framework */; };
 		FED61E4D1FB96E42003169CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E4C1FB96E42003169CD /* AppDelegate.swift */; };
 		FED61E4F1FB96E42003169CD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E4E1FB96E42003169CD /* MainViewController.swift */; };
 		FED61E521FB96E42003169CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FED61E501FB96E42003169CD /* Main.storyboard */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B79D4DEAB0A2FFFF7E35F112 /* Pods-FlowerJeonjuTrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlowerJeonjuTrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlowerJeonjuTrip/Pods-FlowerJeonjuTrip.release.xcconfig"; sourceTree = "<group>"; };
+		BE82B4BB1E8E15D1FC021E4F /* Pods-FlowerJeonjuTrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlowerJeonjuTrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlowerJeonjuTrip/Pods-FlowerJeonjuTrip.debug.xcconfig"; sourceTree = "<group>"; };
+		EDA7B37BF8130069315A3DEB /* Pods_FlowerJeonjuTrip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlowerJeonjuTrip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FED61E491FB96E42003169CD /* FlowerJeonjuTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowerJeonjuTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FED61E4C1FB96E42003169CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FED61E4E1FB96E42003169CD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -33,17 +37,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E440012937EDD2B2EDDE55C /* Pods_FlowerJeonjuTrip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AE4C3E969CE81955037315A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDA7B37BF8130069315A3DEB /* Pods_FlowerJeonjuTrip.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		449E279A231287659BD76D6E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BE82B4BB1E8E15D1FC021E4F /* Pods-FlowerJeonjuTrip.debug.xcconfig */,
+				B79D4DEAB0A2FFFF7E35F112 /* Pods-FlowerJeonjuTrip.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FED61E401FB96E42003169CD = {
 			isa = PBXGroup;
 			children = (
 				FED61E4B1FB96E42003169CD /* FlowerJeonjuTrip */,
 				FED61E4A1FB96E42003169CD /* Products */,
+				449E279A231287659BD76D6E /* Pods */,
+				3AE4C3E969CE81955037315A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FED61E5B1FB96E42003169CD /* Build configuration list for PBXNativeTarget "FlowerJeonjuTrip" */;
 			buildPhases = (
+				CD61D9BE18569CC85BB56DAB /* [CP] Check Pods Manifest.lock */,
 				FED61E451FB96E42003169CD /* Sources */,
 				FED61E461FB96E42003169CD /* Frameworks */,
 				FED61E471FB96E42003169CD /* Resources */,
+				AA3ED6EB439890E5A65A4A60 /* [CP] Embed Pods Frameworks */,
+				97AA0B12CD36C120023BBE7A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -136,6 +163,68 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		97AA0B12CD36C120023BBE7A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FlowerJeonjuTrip/Pods-FlowerJeonjuTrip-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA3ED6EB439890E5A65A4A60 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-FlowerJeonjuTrip/Pods-FlowerJeonjuTrip-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FlowerJeonjuTrip/Pods-FlowerJeonjuTrip-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD61D9BE18569CC85BB56DAB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlowerJeonjuTrip-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FED61E451FB96E42003169CD /* Sources */ = {
@@ -280,6 +369,7 @@
 		};
 		FED61E5C1FB96E42003169CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE82B4BB1E8E15D1FC021E4F /* Pods-FlowerJeonjuTrip.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -296,6 +386,7 @@
 		};
 		FED61E5D1FB96E42003169CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B79D4DEAB0A2FFFF7E35F112 /* Pods-FlowerJeonjuTrip.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
