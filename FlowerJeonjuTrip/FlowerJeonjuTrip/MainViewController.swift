@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    @IBOutlet weak var tableViewMain: UITableView!
+    @IBOutlet weak var mainTableView: UITableView!
     
     var collectionViewStoredOffsets = [Int: CGFloat]()
     
@@ -20,8 +20,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableViewMain.delegate = self
-        self.tableViewMain.dataSource = self
+        self.mainTableView.delegate = self
+        self.mainTableView.dataSource = self
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
