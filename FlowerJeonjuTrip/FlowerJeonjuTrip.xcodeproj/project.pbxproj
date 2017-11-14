@@ -15,6 +15,9 @@
 		FED61E571FB96E42003169CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FED61E551FB96E42003169CD /* LaunchScreen.storyboard */; };
 		FED61E5F1FB981C0003169CD /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E5E1FB981C0003169CD /* MainTableViewCell.swift */; };
 		FED61E611FB99A67003169CD /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E601FB99A67003169CD /* MainCollectionViewCell.swift */; };
+		FED61E631FBA065A003169CD /* JSSecretKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E621FBA065A003169CD /* JSSecretKey.swift */; };
+		FED61E651FBA0D17003169CD /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E641FBA0D17003169CD /* DataCenter.swift */; };
+		FED61E671FBA0DE8003169CD /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E661FBA0DE8003169CD /* PlaceDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		FED61E581FB96E42003169CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FED61E5E1FB981C0003169CD /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		FED61E601FB99A67003169CD /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		FED61E621FBA065A003169CD /* JSSecretKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSSecretKey.swift; sourceTree = "<group>"; };
+		FED61E641FBA0D17003169CD /* DataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; };
+		FED61E661FBA0DE8003169CD /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,10 +91,13 @@
 				FED61E551FB96E42003169CD /* LaunchScreen.storyboard */,
 				FED61E501FB96E42003169CD /* Main.storyboard */,
 				FED61E531FB96E42003169CD /* Assets.xcassets */,
+				FED61E621FBA065A003169CD /* JSSecretKey.swift */,
+				FED61E641FBA0D17003169CD /* DataCenter.swift */,
 				FED61E4C1FB96E42003169CD /* AppDelegate.swift */,
 				FED61E4E1FB96E42003169CD /* MainViewController.swift */,
 				FED61E5E1FB981C0003169CD /* MainTableViewCell.swift */,
 				FED61E601FB99A67003169CD /* MainCollectionViewCell.swift */,
+				FED61E661FBA0DE8003169CD /* PlaceDetailViewController.swift */,
 				FED61E581FB96E42003169CD /* Info.plist */,
 			);
 			path = FlowerJeonjuTrip;
@@ -231,9 +240,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FED61E651FBA0D17003169CD /* DataCenter.swift in Sources */,
 				FED61E4F1FB96E42003169CD /* MainViewController.swift in Sources */,
+				FED61E671FBA0DE8003169CD /* PlaceDetailViewController.swift in Sources */,
 				FED61E5F1FB981C0003169CD /* MainTableViewCell.swift in Sources */,
 				FED61E4D1FB96E42003169CD /* AppDelegate.swift in Sources */,
+				FED61E631FBA065A003169CD /* JSSecretKey.swift in Sources */,
 				FED61E611FB99A67003169CD /* MainCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -244,10 +244,10 @@
             </objects>
             <point key="canvasLocation" x="1822" y="1029"/>
         </scene>
-        <!--View Controller-->
+        <!--Place Detail View Controller-->
         <scene sceneID="KiZ-Ma-ADc">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="tNV-IE-Zuo" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="tNV-IE-Zuo" customClass="PlaceDetailViewController" customModule="FlowerJeonjuTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ctI-uU-lJN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

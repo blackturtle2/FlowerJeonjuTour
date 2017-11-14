@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SWXMLHash
 
 class MainViewController: UIViewController {
 
@@ -20,13 +22,40 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // TableView Delegate & DataSource
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         
+        // UI Setting
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
+        
+        // API: culture 문화공간 정보 서비스 Cultural Space Information Services
+        // https://goo.gl/kT7UD8
+        // http://openapi.jeonju.go.kr/rest/culture/getCultureList?authApiKey=인증키&dataValue=%EC%A0%95%EC%9D%8D%EA%B3%A0%ED%83%9D
+        let cultureReqUrl = "\(JSsecretKey.cultureAPI_RootDomain)/getCultureList?authApiKey=\(JSsecretKey.cultureAPI_MyKey)"
+        
+        Alamofire.request(cultureReqUrl).response(queue: nil) {[unowned self] (response) in
+            let data = response.data
+            guard let realData = data else { return }
+            let xml = SWXMLHash.parse(realData)
+            print("///// xml- 5123: \n", xml)
+            
+            let rawData = xml["rfcOpenApi"]["body"]["data"]["list"].all
+            print("///// rawData- 5523: \n", rawData)
+            
+            
+//            DataCenter.shared.cultureList = xml.description
+            
+            // UI
+//            DispatchQueue.main.async {
+//                self.tableViewMain.reloadData()
+//            }
+            
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
