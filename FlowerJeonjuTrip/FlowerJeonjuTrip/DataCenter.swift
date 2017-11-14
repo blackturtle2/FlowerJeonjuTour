@@ -13,7 +13,7 @@ struct cultureClass {
     var sid: String // 데이터번호 dataSid
     var title: String // 시설명 dataTitle
     var content: String // 기타내용 dataContent
-    var introContent: String // 시설소개 =
+    var introContent: String // 시설소개 introContent
     var tel: String // 시설연락처 tel
     var website: String // 시설홈페이지 userHomepage
     var typeCode: String // 시설구분 - typeCode
@@ -28,6 +28,6 @@ class DataCenter {
     
     static let shared = DataCenter()
     
-    var cultureList:String? = nil
+    var cultureList: [cultureClass]? = nil
     
 }

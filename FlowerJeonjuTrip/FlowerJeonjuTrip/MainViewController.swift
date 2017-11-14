@@ -38,16 +38,30 @@ class MainViewController: UIViewController {
         let cultureReqUrl = "\(JSsecretKey.cultureAPI_RootDomain)/getCultureList?authApiKey=\(JSsecretKey.cultureAPI_MyKey)"
         
         Alamofire.request(cultureReqUrl).response(queue: nil) {[unowned self] (response) in
-            let data = response.data
-            guard let realData = data else { return }
+            guard let realData = response.data else { return }
             let xml = SWXMLHash.parse(realData)
             print("///// xml- 5123: \n", xml)
             
             let rawData = xml["rfcOpenApi"]["body"]["data"]["list"].all
             print("///// rawData- 5523: \n", rawData)
             
-            
-//            DataCenter.shared.cultureList = xml.description
+            var sortedData:[cultureClass] = []
+            for item in rawData {
+                sortedData.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
+                                                                   title: item["dataTitle"].element?.text ?? "",
+                                                                   content: item["dataContent"].element?.text ?? "",
+                                                                   introContent: item["introContent"].element?.text ?? "",
+                                                                   tel: item["tel"].element?.text ?? "",
+                                                                   website: item["userHomepage"].element?.text ?? "",
+                                                                   typeCode: item["typeCode"].element?.text ?? "",
+                                                                   address: item["addr"].element?.text ?? "",
+                                                                   addressDetail: item["addrDtl"].element?.text ?? "",
+                                                                   createdDate: item["regDt"].element?.text ?? "",
+                                                                   posX: item["posx"].element?.text ?? "",
+                                                                   posY: item["posy"].element?.text ?? ""))
+            }
+            DataCenter.shared.cultureList = sortedData
+            print("///// cultureList- 6582: \n", DataCenter.shared.cultureList ?? "no data")
             
             // UI
 //            DispatchQueue.main.async {
