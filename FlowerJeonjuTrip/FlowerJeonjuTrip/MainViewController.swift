@@ -32,6 +32,19 @@ class MainViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
         
+        self.getShowCultureList()
+        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    /*******************************************/
+    //MARK:-         Functions                 //
+    /*******************************************/
+    
+    func getShowCultureList() {
         // API: culture 문화공간 정보 서비스 Cultural Space Information Services
         // https://goo.gl/kT7UD8
         // http://openapi.jeonju.go.kr/rest/culture/getCultureList?authApiKey=인증키&dataValue=%EC%A0%95%EC%9D%8D%EA%B3%A0%ED%83%9D
@@ -48,38 +61,28 @@ class MainViewController: UIViewController {
             var sortedData:[cultureClass] = []
             for item in rawData {
                 sortedData.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
-                                                                   title: item["dataTitle"].element?.text ?? "",
-                                                                   content: item["dataContent"].element?.text ?? "",
-                                                                   introContent: item["introContent"].element?.text ?? "",
-                                                                   tel: item["tel"].element?.text ?? "",
-                                                                   website: item["userHomepage"].element?.text ?? "",
-                                                                   typeCode: item["typeCode"].element?.text ?? "",
-                                                                   address: item["addr"].element?.text ?? "",
-                                                                   addressDetail: item["addrDtl"].element?.text ?? "",
-                                                                   createdDate: item["regDt"].element?.text ?? "",
-                                                                   posX: item["posx"].element?.text ?? "",
-                                                                   posY: item["posy"].element?.text ?? ""))
+                                               title: item["dataTitle"].element?.text ?? "",
+                                               content: item["dataContent"].element?.text ?? "",
+                                               introContent: item["introContent"].element?.text ?? "",
+                                               tel: item["tel"].element?.text ?? "",
+                                               website: item["userHomepage"].element?.text ?? "",
+                                               typeCode: item["typeCode"].element?.text ?? "",
+                                               address: item["addr"].element?.text ?? "",
+                                               addressDetail: item["addrDtl"].element?.text ?? "",
+                                               createdDate: item["regDt"].element?.text ?? "",
+                                               posX: item["posx"].element?.text ?? "",
+                                               posY: item["posy"].element?.text ?? ""))
             }
             DataCenter.shared.cultureList = sortedData
             print("///// cultureList- 6582: \n", DataCenter.shared.cultureList ?? "no data")
             
             // UI
-//            DispatchQueue.main.async {
-//                self.tableViewMain.reloadData()
-//            }
+            //            DispatchQueue.main.async {
+            //                self.tableViewMain.reloadData()
+            //            }
             
         }
-        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    /*******************************************/
-    //MARK:-         Functions                 //
-    /*******************************************/
-    
 }
 
 
