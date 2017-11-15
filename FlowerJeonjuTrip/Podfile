@@ -11,5 +11,7 @@ target 'FlowerJeonjuTrip' do
   pod 'SWXMLHash', '~> 4.0.0'
   pod 'Kingfisher', '~> 4.0'
   pod 'Toaster'
+  
+  pod 'ActiveLabel', '~> 0.7.1'
 
 end
