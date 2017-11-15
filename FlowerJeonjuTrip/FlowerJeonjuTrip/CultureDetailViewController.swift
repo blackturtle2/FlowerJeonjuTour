@@ -22,7 +22,11 @@ class CultureDetailViewController: UIViewController {
     @IBOutlet weak var buttonTel: UIButton!
     @IBOutlet weak var buttonHomePage: UIButton!
     @IBOutlet weak var collectionViewImageList: UICollectionView!
+    
     @IBOutlet weak var imageViewTourBadge: UIImageView!
+    @IBOutlet weak var imageViewBadgeCover: UIImageView!
+    @IBOutlet weak var labelBadgeText: UILabel!
+    
     @IBOutlet weak var buttonGetTourBadge: UIButton!
     
     var sid: String?
@@ -47,6 +51,7 @@ class CultureDetailViewController: UIViewController {
         
         // UI: 타이틀 텍스트
         self.labelTitle.text = self.sTitle ?? ""
+        self.labelBadgeText.text = self.sTitle ?? ""
         
         // UI: ActiveLabel
         self.labelContent.numberOfLines = 0
@@ -55,6 +60,9 @@ class CultureDetailViewController: UIViewController {
         
         // UI: buttonGetTourBadge cornerRadius
         self.buttonGetTourBadge.layer.cornerRadius = 27.5
+        self.imageViewTourBadge.layer.cornerRadius = self.imageViewTourBadge.frame.height/2
+        self.imageViewBadgeCover.layer.borderWidth = 1
+        self.imageViewBadgeCover.layer.cornerRadius = self.imageViewBadgeCover.frame.height/2
         
         // UI: 타이틀 이미지
         self.imageViewTitle.kf.indicatorType = .activity
@@ -63,6 +71,9 @@ class CultureDetailViewController: UIViewController {
             self.imageViewTitle.kf.setImage(with: URL(string: realFileUrl), placeholder: nil, options: nil, progressBlock: nil, completionHandler: {[unowned self] (image, error, cache, url) in
                 self.imageViewTitle.kf.indicator?.stopAnimatingView()
             })
+            
+            // 뱃지 이미지
+            self.imageViewTourBadge.kf.setImage(with: URL(string: realFileUrl))
         }
         
         // 데이터 가져오기

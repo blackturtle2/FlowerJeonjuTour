@@ -15,6 +15,8 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var mainTableView: UITableView!
     
+    @IBOutlet weak var imageViewHeaderBackground: UIImageView!
+    
     var collectionViewStoredOffsets = [Int: CGFloat]()
     
     var cultureList: [cultureClass] = [] // 관람시설
@@ -36,6 +38,9 @@ class MainViewController: UIViewController {
         // TableView Delegate & DataSource
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
+        
+        // UI
+        self.imageViewHeaderBackground.layer.cornerRadius = 10
         
         self.getShowCultureList()
         
@@ -208,20 +213,20 @@ class MainViewController: UIViewController {
             switch typeCode {
             case .culture:
                 self.cultureImageList[dataSid] = cultureImageClass(dataSid: dataSid,
-                                                                   fileUrl: rawData[0]["fileUrl"].element?.text,
-                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text) // 이미지 목록이 수신되므로 첫번째 이미지를 대표 이미지로 명명한다. rawData[0]
+                                                                   fileUrl: rawData[0]["fileUrl"].element?.text ?? "",
+                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text ?? "") // 이미지 목록이 수신되므로 첫번째 이미지를 대표 이미지로 명명한다. rawData[0]
             case .traditional:
                 self.cultureTraditionalImageList[dataSid] = cultureImageClass(dataSid: dataSid,
-                                                                   fileUrl: rawData[0]["fileUrl"].element?.text,
-                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text)
+                                                                   fileUrl: rawData[0]["fileUrl"].element?.text ?? "",
+                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text ?? "")
             case .center:
                 self.cultureCenterImageList[dataSid] = cultureImageClass(dataSid: dataSid,
-                                                                   fileUrl: rawData[0]["fileUrl"].element?.text,
-                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text)
+                                                                   fileUrl: rawData[0]["fileUrl"].element?.text ?? "",
+                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text ?? "")
             case .library:
                 self.cultureLibraryImageList[dataSid] = cultureImageClass(dataSid: dataSid,
-                                                                   fileUrl: rawData[0]["fileUrl"].element?.text,
-                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text)
+                                                                   fileUrl: rawData[0]["fileUrl"].element?.text ?? "",
+                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text ?? "")
             }
             
             // UI
