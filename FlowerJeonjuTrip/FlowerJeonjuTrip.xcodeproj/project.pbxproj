@@ -19,6 +19,8 @@
 		FED61E651FBA0D17003169CD /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E641FBA0D17003169CD /* DataCenter.swift */; };
 		FED61E671FBA0DE8003169CD /* CultureDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E661FBA0DE8003169CD /* CultureDetailViewController.swift */; };
 		FED61E691FBC8CAC003169CD /* CultureDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E681FBC8CAC003169CD /* CultureDetailCollectionViewCell.swift */; };
+		FED61E6B1FBCAE31003169CD /* MyBadgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E6A1FBCAE31003169CD /* MyBadgeViewController.swift */; };
+		FED61E6D1FBCAFA7003169CD /* MyBadgeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E6C1FBCAFA7003169CD /* MyBadgeCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		FED61E641FBA0D17003169CD /* DataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; };
 		FED61E661FBA0DE8003169CD /* CultureDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CultureDetailViewController.swift; sourceTree = "<group>"; };
 		FED61E681FBC8CAC003169CD /* CultureDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CultureDetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		FED61E6A1FBCAE31003169CD /* MyBadgeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyBadgeViewController.swift; path = Assets.xcassets/MyBadgeViewController.swift; sourceTree = "<group>"; };
+		FED61E6C1FBCAFA7003169CD /* MyBadgeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBadgeCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 				FED61E601FB99A67003169CD /* MainCollectionViewCell.swift */,
 				FED61E661FBA0DE8003169CD /* CultureDetailViewController.swift */,
 				FED61E681FBC8CAC003169CD /* CultureDetailCollectionViewCell.swift */,
+				FED61E6A1FBCAE31003169CD /* MyBadgeViewController.swift */,
+				FED61E6C1FBCAFA7003169CD /* MyBadgeCollectionViewCell.swift */,
 				FED61E581FB96E42003169CD /* Info.plist */,
 			);
 			path = FlowerJeonjuTrip;
@@ -245,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FED61E6B1FBCAE31003169CD /* MyBadgeViewController.swift in Sources */,
 				FED61E651FBA0D17003169CD /* DataCenter.swift in Sources */,
 				FED61E4F1FB96E42003169CD /* MainViewController.swift in Sources */,
 				FED61E671FBA0DE8003169CD /* CultureDetailViewController.swift in Sources */,
@@ -252,6 +259,7 @@
 				FED61E4D1FB96E42003169CD /* AppDelegate.swift in Sources */,
 				FED61E631FBA065A003169CD /* JSSecretKey.swift in Sources */,
 				FED61E691FBC8CAC003169CD /* CultureDetailCollectionViewCell.swift in Sources */,
+				FED61E6D1FBCAFA7003169CD /* MyBadgeCollectionViewCell.swift in Sources */,
 				FED61E611FB99A67003169CD /* MainCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
