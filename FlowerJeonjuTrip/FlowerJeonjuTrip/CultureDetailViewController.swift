@@ -11,6 +11,7 @@ import Alamofire
 import Kingfisher
 import SWXMLHash
 import ActiveLabel
+import SafariServices
 
 class CultureDetailViewController: UIViewController {
     
@@ -179,15 +180,51 @@ class CultureDetailViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: 인앱웹뷰(SFSafariView) 열기 function 정의
+    // `SafariServices`의 import가 필요합니다.
+    func openSafariViewOf(url:String) {
+        guard let realURL = URL(string: url) else { return }
+        
+        // iOS 9부터 지원하는 `SFSafariViewController`를 이용합니다.
+        let safariViewController = SFSafariViewController(url: realURL)
+        //        safariViewController.delegate = self // 사파리 뷰에서 `Done` 버튼을 눌렀을 때의 액션 정의를 위한 Delegate 초기화입니다.
+        self.present(safariViewController, animated: true, completion: nil)
+    }
 
+    // MARK: 다음 지도 검색 function
+    func openSearchDaumMapOf(keyword: String) {
+        guard let realKeyword = keyword.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) else {
+            return
+        }
+        self.openSafariViewOf(url: "https://m.map.daum.net/actions/searchView?q=\(realKeyword)")
+    }
     
+    
+    // MARK: 주소 버튼 액션 function
     @IBAction func actionButtonAddress(_ sender: UIButton) {
+        guard let realCultureView = self.cultureView else { return }
+        let strAddress = "\(realCultureView.address) \(realCultureView.addressDetail)"
+        self.openSearchDaumMapOf(keyword: strAddress)
     }
     
+    
+    // MARK: 전화번호 버튼 액션 function
     @IBAction func actionButtonTel(_ sender: UIButton) {
+        guard let realCultureView = self.cultureView else { return }
+        guard let url = URL(string: "tel://\(realCultureView.tel)") else { return }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
     }
     
+    
+    // MARK: 홈페이지 버튼 액션 function
     @IBAction func actionButtonHomePage(_ sender: UIButton) {
+        guard let realCultureView = self.cultureView else { return }
+        self.openSafariViewOf(url: realCultureView.website)
     }
     
     @IBAction func actionButtonGetTourBadge(_ sender: UIButton) {
@@ -207,6 +244,9 @@ extension CultureDetailViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let resultCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CultureDetailCollectionViewCell", for: indexPath) as! CultureDetailCollectionViewCell
+        resultCell.imageViewCell.layer.cornerRadius = 8
+//        resultCell.viewImageBlur.layer.cornerRadius = 8
+        
         resultCell.imageViewCell.kf.indicatorType = .activity
         resultCell.imageViewCell.kf.indicator?.startAnimatingView()
         

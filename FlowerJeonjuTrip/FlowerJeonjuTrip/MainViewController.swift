@@ -339,7 +339,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let realSid = self.cultureList[indexPath.row].sid
             resultCell.sid = realSid
             resultCell.labelTitleText.text = self.cultureList[indexPath.row].title
-            resultCell.sTitle = self.cultureTraditionalList[indexPath.row].title
+            resultCell.sTitle = self.cultureList[indexPath.row].title
             
             let currentCultureImageList = self.cultureImageList[realSid]
             guard let realFileUrl = currentCultureImageList?.fileUrl else { return resultCell }
