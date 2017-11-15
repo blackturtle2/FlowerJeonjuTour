@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Kingfisher
 import SWXMLHash
 
 class MainViewController: UIViewController {
@@ -15,6 +16,11 @@ class MainViewController: UIViewController {
     @IBOutlet weak var mainTableView: UITableView!
     
     var collectionViewStoredOffsets = [Int: CGFloat]()
+    
+    var cultureList: [cultureClass] = []
+    var cultureImageList: [String:cultureImageClass] = [:]
+    
+    var testImage: String?
     
     /*******************************************/
     //MARK:-        LifeCycle                  //
@@ -25,12 +31,6 @@ class MainViewController: UIViewController {
         // TableView Delegate & DataSource
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
-        
-        // UI Setting
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = UIColor.clear
         
         self.getShowCultureList()
         
@@ -44,6 +44,7 @@ class MainViewController: UIViewController {
     //MARK:-         Functions                 //
     /*******************************************/
     
+    // MARK: 문화공간 데이터 가져오기
     func getShowCultureList() {
         // API: culture 문화공간 정보 서비스 Cultural Space Information Services
         // https://goo.gl/kT7UD8
@@ -58,9 +59,9 @@ class MainViewController: UIViewController {
             let rawData = xml["rfcOpenApi"]["body"]["data"]["list"].all
             print("///// rawData- 5523: \n", rawData)
             
-            var sortedData:[cultureClass] = []
+            var number = 0
             for item in rawData {
-                sortedData.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
+                self.cultureList.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
                                                title: item["dataTitle"].element?.text ?? "",
                                                content: item["dataContent"].element?.text ?? "",
                                                introContent: item["introContent"].element?.text ?? "",
@@ -71,16 +72,52 @@ class MainViewController: UIViewController {
                                                addressDetail: item["addrDtl"].element?.text ?? "",
                                                createdDate: item["regDt"].element?.text ?? "",
                                                posX: item["posx"].element?.text ?? "",
-                                               posY: item["posy"].element?.text ?? ""))
+                                               posY: item["posy"].element?.text ?? "",
+                                               number: number))
+                number += 1
             }
-            DataCenter.shared.cultureList = sortedData
+            
+            // 싱글턴 데이터로 저장하기
+            DataCenter.shared.cultureList = self.cultureList
             print("///// cultureList- 6582: \n", DataCenter.shared.cultureList ?? "no data")
             
             // UI
-            //            DispatchQueue.main.async {
-            //                self.tableViewMain.reloadData()
-            //            }
+            DispatchQueue.main.async {
+                self.mainTableView.reloadData()
+            }
             
+            // 이미지 가져오기
+            for item in self.cultureList {
+                self.getShowImageOfCultureListOf(dataSid: self.cultureList[item.number].sid, number: item.number)
+            }
+            
+        }
+        
+    }
+    
+    // MARK: 문화공간 이미지 데이터 가져오기
+    // 문화공간의 이미지를 가져오고, collectionView의 item들을 reload해서 이미지를 출력한다.
+    func getShowImageOfCultureListOf(dataSid: String, number: Int) {
+        // http://openapi.jeonju.go.kr/rest/culture/getCultureFile?authApiKey=인증키&dataSid=129700
+        let cultureReqUrl = "\(JSsecretKey.cultureAPI_RootDomain)/getCultureFile?authApiKey=\(JSsecretKey.cultureAPI_MyKey)&dataSid=\(dataSid)"
+        
+        Alamofire.request(cultureReqUrl).response(queue: nil) {[unowned self] (response) in
+            guard let realData = response.data else { return }
+            let xml = SWXMLHash.parse(realData)
+            print("///// xml- 6234: \n", xml)
+            
+            let rawData = xml["rfcOpenApi"]["body"]["data"]["list"].all
+            print("///// rawData- 6234: \n", rawData)
+            
+            self.cultureImageList[dataSid] = cultureImageClass(dataSid: dataSid,
+                                                               fileUrl: rawData[0]["fileUrl"].element?.text,
+                                                               thumbUrl: rawData[0]["thumbUrl"].element?.text) // 이미지 목록이 수신되므로 첫번째 이미지를 대표 이미지로 명명한다. rawData[0]
+            
+            // UI
+            DispatchQueue.main.async {
+                let cell = self.mainTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! MainTableViewCell
+                cell.collectionView.reloadItems(at: [IndexPath(row: number, section: 0)])
+            }
         }
     }
 }
@@ -115,7 +152,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     // tableView: cell 그리기
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let resultCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let resultCell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as! MainTableViewCell
         return resultCell
     }
     
@@ -124,7 +161,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let tableViewCell = cell as? MainTableViewCell else { return }
         
-        tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
+        tableViewCell.setCollectionViewDataSourceDelegate(self, forSection: indexPath.section)
         tableViewCell.collectionViewOffset = collectionViewStoredOffsets[indexPath.row] ?? 0
     }
     
@@ -141,20 +178,45 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // UICollectionView: numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return self.cultureList.count
     }
     
     // UICollectionView: cellForItemAt
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as! MainCollectionViewCell
-        cell.imageViewMain.layer.cornerRadius = 8
-        cell.viewImageBlur.layer.cornerRadius = 8
+        let resultCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as! MainCollectionViewCell
+        resultCell.imageViewMain.layer.cornerRadius = 8
+        resultCell.viewImageBlur.layer.cornerRadius = 8
         
-        return cell
+        switch collectionView.tag { //section
+        case 0: // 투어 뱃지 section
+            return resultCell
+        case 1: // 문화 공간 section
+            let realSid = self.cultureList[indexPath.row].sid
+            resultCell.sid = realSid
+            resultCell.labelTitleText.text = self.cultureList[indexPath.row].title
+            
+            let currentCultureImageList = self.cultureImageList[realSid]
+            guard let realFileUrl = currentCultureImageList?.fileUrl else { return resultCell }
+            guard let realThumbUrl = currentCultureImageList?.thumbUrl else { return resultCell }
+            resultCell.imageViewMain.kf.indicatorType = .activity
+            resultCell.imageViewMain.kf.indicator?.startAnimatingView()
+            
+            resultCell.imageViewMain.kf.setImage(with: URL(string: realThumbUrl), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+                DispatchQueue.main.async {
+                    resultCell.imageViewMain.kf.setImage(with: URL(string: realFileUrl), placeholder: image)
+                    resultCell.imageViewMain.kf.indicator?.stopAnimatingView()
+                }
+            }
+            
+            return resultCell
+        default:
+            return resultCell
+        }
+
     }
     
     // UICollectionView: didSelectItemAt
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
+        print("Collection view at section \(collectionView.tag) selected index path \(indexPath)")
     }
 }

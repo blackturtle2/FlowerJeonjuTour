@@ -22,6 +22,15 @@ struct cultureClass {
     var createdDate: String // 등록일 regDt
     var posX: String // 경도
     var posY: String // 위도
+    
+    var number: Int // 고유 키 값
+}
+
+// 문화 공간 이미지 데이터 클래스
+struct cultureImageClass {
+    var dataSid: String
+    var fileUrl: String?
+    var thumbUrl: String?
 }
 
 class DataCenter {

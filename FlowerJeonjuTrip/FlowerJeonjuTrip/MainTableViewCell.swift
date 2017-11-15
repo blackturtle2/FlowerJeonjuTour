@@ -14,8 +14,6 @@ class MainTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        self.collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,11 +27,11 @@ class MainTableViewCell: UITableViewCell {
 
 extension MainTableViewCell {
     
-    func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(_ dataSourceDelegate: D, forRow row: Int) {
+    func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(_ dataSourceDelegate: D, forSection section: Int) {
         
         collectionView.delegate = dataSourceDelegate
         collectionView.dataSource = dataSourceDelegate
-        collectionView.tag = row
+        collectionView.tag = section
         collectionView.setContentOffset(collectionView.contentOffset, animated:false)
         collectionView.reloadData()
     }

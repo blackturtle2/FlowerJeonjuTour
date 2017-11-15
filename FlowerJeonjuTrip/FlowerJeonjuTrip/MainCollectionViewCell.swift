@@ -13,4 +13,7 @@ class MainCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageViewMain: UIImageView!
     @IBOutlet weak var viewImageBlur: UIView!
     @IBOutlet weak var labelTitleText: UILabel!
+    
+    var sid: String?
+    
 }

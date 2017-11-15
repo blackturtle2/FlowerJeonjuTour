@@ -42,7 +42,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="180" id="F35-rb-08n" customClass="MainTableViewCell" customModule="FlowerJeonjuTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MainTableViewCell" rowHeight="180" id="F35-rb-08n" customClass="MainTableViewCell" customModule="FlowerJeonjuTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="266.5" width="375" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F35-rb-08n" id="KJh-Ez-BMi">
@@ -247,13 +247,13 @@
         <!--Place Detail View Controller-->
         <scene sceneID="KiZ-Ma-ADc">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="tNV-IE-Zuo" customClass="PlaceDetailViewController" customModule="FlowerJeonjuTrip" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tNV-IE-Zuo" customClass="PlaceDetailViewController" customModule="FlowerJeonjuTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ctI-uU-lJN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKl-NF-oIT">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="736"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2bS-5E-TCh">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="737"/>
@@ -404,7 +404,7 @@
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpK-3l-A52">
                                                 <rect key="frame" x="19" y="651" width="337" height="56"/>
-                                                <color key="backgroundColor" red="0.99215686274509807" green="0.3411764705882353" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.93725490199999995" green="0.18039215689999999" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="sU7-4o-gwv"/>
                                                 </constraints>
@@ -485,13 +485,12 @@
                         <constraints>
                             <constraint firstItem="0TE-rK-WEE" firstAttribute="trailing" secondItem="NKl-NF-oIT" secondAttribute="trailing" id="QYs-La-0mc"/>
                             <constraint firstItem="0TE-rK-WEE" firstAttribute="bottom" secondItem="NKl-NF-oIT" secondAttribute="bottom" id="ZWE-4e-Kea"/>
-                            <constraint firstItem="NKl-NF-oIT" firstAttribute="top" secondItem="ctI-uU-lJN" secondAttribute="top" id="k65-mO-zLG"/>
+                            <constraint firstItem="NKl-NF-oIT" firstAttribute="top" secondItem="0TE-rK-WEE" secondAttribute="top" id="k65-mO-zLG"/>
                             <constraint firstItem="NKl-NF-oIT" firstAttribute="leading" secondItem="0TE-rK-WEE" secondAttribute="leading" id="tu8-Ng-WVw"/>
                             <constraint firstItem="2bS-5E-TCh" firstAttribute="width" secondItem="ctI-uU-lJN" secondAttribute="width" id="wA0-Sw-dm3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0TE-rK-WEE"/>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="375" height="800"/>
                 </viewController>
@@ -529,12 +528,13 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Laq-M3-xTb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="관광" image="home" id="F7H-SB-ReM"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="w8f-z1-kkX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="w8f-z1-kkX">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.93725490199999995" green="0.18039215689999999" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.93725490199999995" green="0.18039215689999999" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
