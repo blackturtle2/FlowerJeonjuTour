@@ -17,10 +17,15 @@ class MainViewController: UIViewController {
     
     var collectionViewStoredOffsets = [Int: CGFloat]()
     
-    var cultureList: [cultureClass] = []
-    var cultureImageList: [String:cultureImageClass] = [:]
+    var cultureList: [cultureClass] = [] // 관람시설
+    var cultureTraditionalList: [cultureClass] = [] // 전통시설
+    var cultureCenterList: [cultureClass] = [] // 문화센터
+    var cultureLibraryList: [cultureClass] = [] // 도서관
     
-    var testImage: String?
+    var cultureImageList: [String:cultureImageClass] = [:] // 관람시설
+    var cultureTraditionalImageList: [String:cultureImageClass] = [:] // 전통시설
+    var cultureCenterImageList: [String:cultureImageClass] = [:] // 문화센터
+    var cultureLibraryImageList: [String:cultureImageClass] = [:] // 도서관
     
     /*******************************************/
     //MARK:-        LifeCycle                  //
@@ -43,43 +48,110 @@ class MainViewController: UIViewController {
     /*******************************************/
     //MARK:-         Functions                 //
     /*******************************************/
+    // MARK: API 일일트래픽 제한에 해단될 때의 Alert function
+    func limitedNumberOfServiceReqAlert() {
+        let alertController = UIAlertController(title: "알림", message: "공공 API의 일일 트래픽 제한이 발생했습니다.\n\n문제가 지속될 경우\n개발자에게 문의 부탁드립니다.\nblackturtle2@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
+        let alertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     // MARK: 문화공간 데이터 가져오기
     func getShowCultureList() {
         // API: culture 문화공간 정보 서비스 Cultural Space Information Services
         // https://goo.gl/kT7UD8
         // http://openapi.jeonju.go.kr/rest/culture/getCultureList?authApiKey=인증키&dataValue=%EC%A0%95%EC%9D%8D%EA%B3%A0%ED%83%9D
-        let cultureReqUrl = "\(JSsecretKey.cultureAPI_RootDomain)/getCultureList?authApiKey=\(JSsecretKey.cultureAPI_MyKey)"
+        let cultureReqUrl = "\(JSsecretKey.cultureAPI_RootDomain)/getCultureList?authApiKey=\(JSsecretKey.cultureAPI_MyKey)&pageSize=50"
         
         Alamofire.request(cultureReqUrl).response(queue: nil) {[unowned self] (response) in
             guard let realData = response.data else { return }
             let xml = SWXMLHash.parse(realData)
             print("///// xml- 5123: \n", xml)
             
+            if let alert = xml["rfcOpenApi"]["header"]["resultCode"].element?.text {
+                if alert == "22" {
+                    self.limitedNumberOfServiceReqAlert()
+                    return
+                }
+            }
+            
             let rawData = xml["rfcOpenApi"]["body"]["data"]["list"].all
             print("///// rawData- 5523: \n", rawData)
             
-            var number = 0
+            // 관람시설, 전통시설, 문화센터, 도서관
+            var cultureNumber = 0
+            var cultureTraditionalNumber = 0
+            var cultureCenterNumber = 0
+            var cultureLibraryNumber = 0
             for item in rawData {
-                self.cultureList.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
-                                               title: item["dataTitle"].element?.text ?? "",
-                                               content: item["dataContent"].element?.text ?? "",
-                                               introContent: item["introContent"].element?.text ?? "",
-                                               tel: item["tel"].element?.text ?? "",
-                                               website: item["userHomepage"].element?.text ?? "",
-                                               typeCode: item["typeCode"].element?.text ?? "",
-                                               address: item["addr"].element?.text ?? "",
-                                               addressDetail: item["addrDtl"].element?.text ?? "",
-                                               createdDate: item["regDt"].element?.text ?? "",
-                                               posX: item["posx"].element?.text ?? "",
-                                               posY: item["posy"].element?.text ?? "",
-                                               number: number))
-                number += 1
+                if item["typeCode"].element?.text == "관람시설" {
+                    self.cultureList.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
+                                                         title: item["dataTitle"].element?.text ?? "",
+                                                         content: item["dataContent"].element?.text ?? "",
+                                                         introContent: item["introContent"].element?.text ?? "",
+                                                         tel: item["tel"].element?.text ?? "",
+                                                         website: item["userHomepage"].element?.text ?? "",
+                                                         typeCode: item["typeCode"].element?.text ?? "",
+                                                         address: item["addr"].element?.text ?? "",
+                                                         addressDetail: item["addrDtl"].element?.text ?? "",
+                                                         createdDate: item["regDt"].element?.text ?? "",
+                                                         posX: item["posx"].element?.text ?? "",
+                                                         posY: item["posy"].element?.text ?? "",
+                                                         number: cultureNumber))
+                    cultureNumber += 1
+                }else if item["typeCode"].element?.text == "전통시설" {
+                    self.cultureTraditionalList.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
+                                                         title: item["dataTitle"].element?.text ?? "",
+                                                         content: item["dataContent"].element?.text ?? "",
+                                                         introContent: item["introContent"].element?.text ?? "",
+                                                         tel: item["tel"].element?.text ?? "",
+                                                         website: item["userHomepage"].element?.text ?? "",
+                                                         typeCode: item["typeCode"].element?.text ?? "",
+                                                         address: item["addr"].element?.text ?? "",
+                                                         addressDetail: item["addrDtl"].element?.text ?? "",
+                                                         createdDate: item["regDt"].element?.text ?? "",
+                                                         posX: item["posx"].element?.text ?? "",
+                                                         posY: item["posy"].element?.text ?? "",
+                                                         number: cultureTraditionalNumber))
+                    cultureTraditionalNumber += 1
+                }else if item["typeCode"].element?.text == "문화센터" {
+                    self.cultureCenterList.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
+                                                         title: item["dataTitle"].element?.text ?? "",
+                                                         content: item["dataContent"].element?.text ?? "",
+                                                         introContent: item["introContent"].element?.text ?? "",
+                                                         tel: item["tel"].element?.text ?? "",
+                                                         website: item["userHomepage"].element?.text ?? "",
+                                                         typeCode: item["typeCode"].element?.text ?? "",
+                                                         address: item["addr"].element?.text ?? "",
+                                                         addressDetail: item["addrDtl"].element?.text ?? "",
+                                                         createdDate: item["regDt"].element?.text ?? "",
+                                                         posX: item["posx"].element?.text ?? "",
+                                                         posY: item["posy"].element?.text ?? "",
+                                                         number: cultureCenterNumber))
+                    cultureCenterNumber += 1
+                }else if item["typeCode"].element?.text == "도서관" {
+                    self.cultureLibraryList.append(cultureClass(sid: item["dataSid"].element?.text ?? "",
+                                                         title: item["dataTitle"].element?.text ?? "",
+                                                         content: item["dataContent"].element?.text ?? "",
+                                                         introContent: item["introContent"].element?.text ?? "",
+                                                         tel: item["tel"].element?.text ?? "",
+                                                         website: item["userHomepage"].element?.text ?? "",
+                                                         typeCode: item["typeCode"].element?.text ?? "",
+                                                         address: item["addr"].element?.text ?? "",
+                                                         addressDetail: item["addrDtl"].element?.text ?? "",
+                                                         createdDate: item["regDt"].element?.text ?? "",
+                                                         posX: item["posx"].element?.text ?? "",
+                                                         posY: item["posy"].element?.text ?? "",
+                                                         number: cultureLibraryNumber))
+                    cultureLibraryNumber += 1
+                }
             }
             
             // 싱글턴 데이터로 저장하기
             DataCenter.shared.cultureList = self.cultureList
-            print("///// cultureList- 6582: \n", DataCenter.shared.cultureList ?? "no data")
+            DataCenter.shared.cultureTraditionlList = self.cultureTraditionalList
+            DataCenter.shared.cultureCenterList = self.cultureCenterList
+            DataCenter.shared.cultureLibraryList = self.cultureLibraryList
             
             // UI
             DispatchQueue.main.async {
@@ -87,17 +159,34 @@ class MainViewController: UIViewController {
             }
             
             // 이미지 가져오기
-            for item in self.cultureList {
-                self.getShowImageOfCultureListOf(dataSid: self.cultureList[item.number].sid, number: item.number)
+            for item in self.cultureList { // 관람시설
+                self.getShowImageOfCultureListOf(typeCode: .culture, dataSid: self.cultureList[item.number].sid, number: item.number)
+            }
+            for item in self.cultureTraditionalList { // 전통시설
+                self.getShowImageOfCultureListOf(typeCode: .traditional, dataSid: self.cultureTraditionalList[item.number].sid, number: item.number)
+            }
+            for item in self.cultureCenterList { // 문화센터
+                self.getShowImageOfCultureListOf(typeCode: .center, dataSid: self.cultureCenterList[item.number].sid, number: item.number)
+            }
+            for item in self.cultureLibraryList { // 도서관
+                self.getShowImageOfCultureListOf(typeCode: .library, dataSid: self.cultureLibraryList[item.number].sid, number: item.number)
             }
             
         }
         
     }
     
+    enum enumTypeCode {
+        case culture
+        case traditional
+        case center
+        case library
+    }
+    
+    
     // MARK: 문화공간 이미지 데이터 가져오기
     // 문화공간의 이미지를 가져오고, collectionView의 item들을 reload해서 이미지를 출력한다.
-    func getShowImageOfCultureListOf(dataSid: String, number: Int) {
+    func getShowImageOfCultureListOf(typeCode: enumTypeCode, dataSid: String, number: Int) {
         // http://openapi.jeonju.go.kr/rest/culture/getCultureFile?authApiKey=인증키&dataSid=129700
         let cultureReqUrl = "\(JSsecretKey.cultureAPI_RootDomain)/getCultureFile?authApiKey=\(JSsecretKey.cultureAPI_MyKey)&dataSid=\(dataSid)"
         
@@ -106,17 +195,57 @@ class MainViewController: UIViewController {
             let xml = SWXMLHash.parse(realData)
             print("///// xml- 6234: \n", xml)
             
+            if let alert = xml["rfcOpenApi"]["header"]["resultCode"].element?.text {
+                if alert == "22" {
+                    self.limitedNumberOfServiceReqAlert()
+                    return
+                }
+            }
+            
             let rawData = xml["rfcOpenApi"]["body"]["data"]["list"].all
             print("///// rawData- 6234: \n", rawData)
             
-            self.cultureImageList[dataSid] = cultureImageClass(dataSid: dataSid,
-                                                               fileUrl: rawData[0]["fileUrl"].element?.text,
-                                                               thumbUrl: rawData[0]["thumbUrl"].element?.text) // 이미지 목록이 수신되므로 첫번째 이미지를 대표 이미지로 명명한다. rawData[0]
+            switch typeCode {
+            case .culture:
+                self.cultureImageList[dataSid] = cultureImageClass(dataSid: dataSid,
+                                                                   fileUrl: rawData[0]["fileUrl"].element?.text,
+                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text) // 이미지 목록이 수신되므로 첫번째 이미지를 대표 이미지로 명명한다. rawData[0]
+            case .traditional:
+                self.cultureTraditionalImageList[dataSid] = cultureImageClass(dataSid: dataSid,
+                                                                   fileUrl: rawData[0]["fileUrl"].element?.text,
+                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text)
+            case .center:
+                self.cultureCenterImageList[dataSid] = cultureImageClass(dataSid: dataSid,
+                                                                   fileUrl: rawData[0]["fileUrl"].element?.text,
+                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text)
+            case .library:
+                self.cultureLibraryImageList[dataSid] = cultureImageClass(dataSid: dataSid,
+                                                                   fileUrl: rawData[0]["fileUrl"].element?.text,
+                                                                   thumbUrl: rawData[0]["thumbUrl"].element?.text)
+            }
             
             // UI
             DispatchQueue.main.async {
-                let cell = self.mainTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! MainTableViewCell
-                cell.collectionView.reloadItems(at: [IndexPath(row: number, section: 0)])
+//                self.mainTableView.reloadData()
+                switch typeCode {
+                case .culture:
+                    if let cell = self.mainTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? MainTableViewCell {
+                        cell.collectionView.reloadItems(at: [IndexPath(row: number, section: 0)])
+                    }
+                case .traditional:
+                    if let cell = self.mainTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? MainTableViewCell {
+                        cell.collectionView.reloadItems(at: [IndexPath(row: number, section: 0)])
+                    }
+                case .center:
+                    if let cell = self.mainTableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? MainTableViewCell {
+                        cell.collectionView.reloadItems(at: [IndexPath(row: number, section: 0)])
+                    }
+                case .library:
+                    if let cell = self.mainTableView.cellForRow(at: IndexPath(row: 0, section: 3)) as? MainTableViewCell {
+                        cell.collectionView.reloadItems(at: [IndexPath(row: number, section: 0)])
+                    }
+                }
+                
             }
         }
     }
@@ -130,16 +259,20 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     // tableView: Section 개수
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 4
     }
     
     // tableView: Section 헤더 타이틀
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "투어 뱃지"
+            return "관람시설"
         case 1:
-            return "문화 공간"
+            return "전통시설"
+        case 2:
+            return "문화센터"
+        case 3:
+            return "도서관"
         default:
             return nil
         }
@@ -178,7 +311,18 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // UICollectionView: numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.cultureList.count
+        switch collectionView.tag {
+        case 0:
+            return self.cultureList.count
+        case 1:
+            return self.cultureTraditionalList.count
+        case 2:
+            return self.cultureCenterList.count
+        case 3:
+            return self.cultureLibraryList.count
+        default:
+            return 0
+        }
     }
     
     // UICollectionView: cellForItemAt
@@ -187,19 +331,77 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         resultCell.imageViewMain.layer.cornerRadius = 8
         resultCell.viewImageBlur.layer.cornerRadius = 8
         
+        resultCell.imageViewMain.kf.indicatorType = .activity
+        resultCell.imageViewMain.kf.indicator?.startAnimatingView()
+        
         switch collectionView.tag { //section
-        case 0: // 투어 뱃지 section
-            return resultCell
-        case 1: // 문화 공간 section
+        case 0: // 관람시설 section
             let realSid = self.cultureList[indexPath.row].sid
             resultCell.sid = realSid
             resultCell.labelTitleText.text = self.cultureList[indexPath.row].title
+            resultCell.sTitle = self.cultureTraditionalList[indexPath.row].title
             
             let currentCultureImageList = self.cultureImageList[realSid]
             guard let realFileUrl = currentCultureImageList?.fileUrl else { return resultCell }
             guard let realThumbUrl = currentCultureImageList?.thumbUrl else { return resultCell }
-            resultCell.imageViewMain.kf.indicatorType = .activity
-            resultCell.imageViewMain.kf.indicator?.startAnimatingView()
+            resultCell.fileUrl = realFileUrl
+            
+            resultCell.imageViewMain.kf.setImage(with: URL(string: realThumbUrl), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+                DispatchQueue.main.async {
+                    resultCell.imageViewMain.kf.setImage(with: URL(string: realFileUrl), placeholder: image)
+                    resultCell.imageViewMain.kf.indicator?.stopAnimatingView()
+                }
+            }
+            
+            return resultCell
+        case 1: // 전통시설 section
+            let realSid = self.cultureTraditionalList[indexPath.row].sid
+            resultCell.sid = realSid
+            resultCell.labelTitleText.text = self.cultureTraditionalList[indexPath.row].title
+            resultCell.sTitle = self.cultureTraditionalList[indexPath.row].title
+            
+            let currentImageList = self.cultureTraditionalImageList[realSid]
+            guard let realFileUrl = currentImageList?.fileUrl else { return resultCell }
+            guard let realThumbUrl = currentImageList?.thumbUrl else { return resultCell }
+            resultCell.fileUrl = realFileUrl
+            
+            resultCell.imageViewMain.kf.setImage(with: URL(string: realThumbUrl), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+                DispatchQueue.main.async {
+                    resultCell.imageViewMain.kf.setImage(with: URL(string: realFileUrl), placeholder: image)
+                    resultCell.imageViewMain.kf.indicator?.stopAnimatingView()
+                }
+            }
+            
+            return resultCell
+        case 2: // 문화센터 section
+            let realSid = self.cultureCenterList[indexPath.row].sid
+            resultCell.sid = realSid
+            resultCell.labelTitleText.text = self.cultureCenterList[indexPath.row].title
+            resultCell.sTitle = self.cultureCenterList[indexPath.row].title
+            
+            let currentImageList = self.cultureCenterImageList[realSid]
+            guard let realFileUrl = currentImageList?.fileUrl else { return resultCell }
+            guard let realThumbUrl = currentImageList?.thumbUrl else { return resultCell }
+            resultCell.fileUrl = realFileUrl
+            
+            resultCell.imageViewMain.kf.setImage(with: URL(string: realThumbUrl), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
+                DispatchQueue.main.async {
+                    resultCell.imageViewMain.kf.setImage(with: URL(string: realFileUrl), placeholder: image)
+                    resultCell.imageViewMain.kf.indicator?.stopAnimatingView()
+                }
+            }
+            
+            return resultCell
+        case 3: // 도서관 section
+            let realSid = self.cultureLibraryList[indexPath.row].sid
+            resultCell.sid = realSid
+            resultCell.labelTitleText.text = self.cultureLibraryList[indexPath.row].title
+            resultCell.sTitle = self.cultureLibraryList[indexPath.row].title
+            
+            let currentImageList = self.cultureLibraryImageList[realSid]
+            guard let realFileUrl = currentImageList?.fileUrl else { return resultCell }
+            guard let realThumbUrl = currentImageList?.thumbUrl else { return resultCell }
+            resultCell.fileUrl = realFileUrl
             
             resultCell.imageViewMain.kf.setImage(with: URL(string: realThumbUrl), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cache, url) in
                 DispatchQueue.main.async {
@@ -218,5 +420,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // UICollectionView: didSelectItemAt
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Collection view at section \(collectionView.tag) selected index path \(indexPath)")
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! MainCollectionViewCell
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CultureDetailViewController") as! CultureDetailViewController
+        nextVC.sid = cell.sid
+        nextVC.sTitle = cell.sTitle
+        nextVC.fileUrl = cell.fileUrl
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

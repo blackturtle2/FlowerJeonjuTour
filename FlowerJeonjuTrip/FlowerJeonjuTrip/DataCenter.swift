@@ -38,5 +38,8 @@ class DataCenter {
     static let shared = DataCenter()
     
     var cultureList: [cultureClass]? = nil
+    var cultureTraditionlList: [cultureClass]? = nil
+    var cultureCenterList: [cultureClass]? = nil
+    var cultureLibraryList: [cultureClass]? = nil
     
 }

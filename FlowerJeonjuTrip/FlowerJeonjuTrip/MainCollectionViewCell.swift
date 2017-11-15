@@ -15,5 +15,7 @@ class MainCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var labelTitleText: UILabel!
     
     var sid: String?
+    var sTitle: String?
+    var fileUrl: String?
     
 }
