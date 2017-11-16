@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import Kingfisher
 import SWXMLHash
+import SafariServices
+import MessageUI
 
 class MainViewController: UIViewController {
 
@@ -53,6 +55,66 @@ class MainViewController: UIViewController {
     /*******************************************/
     //MARK:-         Functions                 //
     /*******************************************/
+    // MARK: 인앱웹뷰(SFSafariView) 열기 function 정의
+    // `SafariServices`의 import가 필요합니다.
+    func openSafariViewOf(url:String) {
+        guard let realURL = URL(string: url) else { return }
+        
+        // iOS 9부터 지원하는 `SFSafariViewController`를 이용합니다.
+        let safariViewController = SFSafariViewController(url: realURL)
+        self.present(safariViewController, animated: true, completion: nil)
+    }
+    
+    //MARK: 앱 문의 email 보내기 function 정의
+    // [주의] `MessageUI` import 필요
+    func sendEmailTo(emailAddress email:String) {
+        let userSystemVersion = UIDevice.current.systemVersion // 현재 사용자 iOS 버전
+        let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String // 현재 사용자 앱 버전
+        
+        // 메일 쓰는 뷰컨트롤러 선언
+        let mailComposeViewController = configuredMailComposeViewController(emailAddress: email, systemVersion: userSystemVersion, appVersion: userAppVersion!)
+        
+        //사용자의 아이폰에 메일 주소가 세팅되어 있을 경우에만 mailComposeViewController()를 태웁니다.
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } // else일 경우, iOS 에서 자체적으로 메일 주소를 세팅하라는 메시지를 띄웁니다.
+    }
+    
+    // MARK: 메일 보내는 뷰컨트롤러 속성 세팅
+    func configuredMailComposeViewController(emailAddress:String, systemVersion:String, appVersion:String) -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // 메일 보내기 Finish 이후의 액션 정의를 위한 Delegate 초기화.
+        
+        mailComposerVC.setToRecipients([emailAddress]) // 받는 사람 설정
+        mailComposerVC.setSubject("[꽃심전주투어] 사용자로부터 도착한 편지") // 메일 제목 설정
+        mailComposerVC.setMessageBody("* iOS Version: \(systemVersion) / App Version: \(appVersion)\n** 고맙습니다. 무엇이 궁금하신가요? :D", isHTML: false) // 메일 내용 설정
+        
+        return mailComposerVC
+    }
+
+    
+    // MARK: 내비게이션 바, info 버튼 액션 function
+    @IBAction func actionNaviInfoButton(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "개발자: 까만거북이 - 이재성 (PM & iOS dev)", message: "꽃심전주투어 앱은 아래 전주시의 Open API, Open Data의 도움을 받아 개발되었습니다.\n\n문화공간 정보 서비스 (전라북도 전주시)\n착한가격모범업소 정보 현황 (전라북도 전주시)\n무선인터넷존 위치정보 서비스 (전라북도 전주시)\n화장실 정보 서비스 (전라북도 전주시)\n전주음식 정보 서비스 (전라북도 전주시)\n\n공공데이터포털 - https://www.data.go.kr\n전주시 공공데이터 커뮤니티 센터 - http://openapi.jeonju.go.kr\n전주시청 - http://www.jeonju.go.kr\n한바탕전주 - http://tour.jeonju.go.kr", preferredStyle: .actionSheet)
+        let blogButton = UIAlertAction(title: "Blog", style: .default, handler: {[unowned self] (action) in
+            self.openSafariViewOf(url: "http://blackturtle2.net")
+        })
+        let githubButton = UIAlertAction(title: "GitHub", style: .default, handler: {[unowned self] (action) in
+            self.openSafariViewOf(url: "https://github.com/blackturtle2")
+        })
+        let mailButton = UIAlertAction(title: "E-mail", style: .destructive, handler: {[unowned self] (action) in
+            self.sendEmailTo(emailAddress: "blackturtle2@gmail.com")
+        })
+        let cancelButton = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(blogButton)
+        alert.addAction(githubButton)
+        alert.addAction(mailButton)
+        alert.addAction(cancelButton)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: API 일일트래픽 제한에 해단될 때의 Alert function
     func limitedNumberOfServiceReqAlert() {
         let alertController = UIAlertController(title: "알림", message: "공공 API의 일일 트래픽 제한이 발생했습니다.\n\n문제가 지속될 경우\n개발자에게 문의 부탁드립니다.\nblackturtle2@gmail.com", preferredStyle: UIAlertControllerStyle.alert)
@@ -433,5 +495,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         nextVC.fileUrl = cell.fileUrl
         
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+}
+
+
+// MARK: Extension - MFMailComposeViewControllerDelegate
+extension MainViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

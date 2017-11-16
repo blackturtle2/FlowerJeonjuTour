@@ -10,4 +10,7 @@ import UIKit
 
 class MyBadgeCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var imageViewMain: UIImageView!
+    @IBOutlet weak var labelTitle: UILabel!
+    var sid: String?
 }
