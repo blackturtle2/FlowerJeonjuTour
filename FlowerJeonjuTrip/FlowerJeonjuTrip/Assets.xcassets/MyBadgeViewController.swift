@@ -71,10 +71,18 @@ class MyBadgeViewController: UIViewController {
 /*******************************************/
 //MARK:          extenstion                //
 /*******************************************/
-extension MyBadgeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MyBadgeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.myBadgeData?.count ?? 0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let frameWidth = self.view.frame.width
+        let cellWidthHeight = (frameWidth - 70) / 3
+        
+        return CGSize(width: cellWidthHeight, height: cellWidthHeight)
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let resultCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyBadgeCollectionViewCell", for: indexPath) as! MyBadgeCollectionViewCell
@@ -83,9 +91,17 @@ extension MyBadgeViewController: UICollectionViewDelegate, UICollectionViewDataS
         resultCell.sid = realMyBadgeData[indexPath.row]["sid"]
         resultCell.labelTitle.text = realMyBadgeData[indexPath.row]["title"]
         resultCell.imageViewMain.kf.setImage(with: URL(string: realMyBadgeData[indexPath.row]["imageUrl"] ?? ""))
+
+        resultCell.layoutIfNeeded() // viewDidLoad()에서도 이미지가 원형을 유지하기 위해서는 layoutIfNeeded()가 필요합니다.
+        resultCell.imageViewMain.layer.cornerRadius = resultCell.imageViewMain.frame.height/2
+        resultCell.imageViewMainCover.layer.cornerRadius = resultCell.imageViewMainCover.frame.height/2
+        resultCell.imageViewMainCover.layer.borderWidth = 1
         
         return resultCell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
     
 }
