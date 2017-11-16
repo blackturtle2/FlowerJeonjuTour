@@ -16,7 +16,7 @@ class MyBadgeViewController: UIViewController {
     
     @IBOutlet weak var mainCollectionView: UICollectionView!
     
-    var myBadgeData: [cultureBadgeClass]?
+    var myBadgeData: [[String:String]]?
     
     
     /*******************************************/
@@ -31,14 +31,15 @@ class MyBadgeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let realMyBadge = UserDefaults.standard.object(forKey: "myBadge") as? [cultureBadgeClass] else {
+        if UserDefaults.standard.array(forKey: "myBadge") == nil {
             print("///// myBadge is nil")
             return
+        }else {
+            self.labelNoBadge.isHidden = true
+            
+            self.myBadgeData = UserDefaults.standard.array(forKey: "myBadge") as? [[String : String]]
+            self.mainCollectionView.reloadData()
         }
-        self.labelNoBadge.isHidden = true
-        
-        self.myBadgeData = realMyBadge
-        self.mainCollectionView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,9 +80,9 @@ extension MyBadgeViewController: UICollectionViewDelegate, UICollectionViewDataS
         let resultCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyBadgeCollectionViewCell", for: indexPath) as! MyBadgeCollectionViewCell
         guard let realMyBadgeData = self.myBadgeData else { return resultCell }
         
-        resultCell.sid = realMyBadgeData[indexPath.row].sid
-        resultCell.labelTitle.text = realMyBadgeData[indexPath.row].title
-        resultCell.imageViewMain.kf.setImage(with: URL(string: realMyBadgeData[indexPath.row].imageUrl))
+        resultCell.sid = realMyBadgeData[indexPath.row]["sid"]
+        resultCell.labelTitle.text = realMyBadgeData[indexPath.row]["title"]
+        resultCell.imageViewMain.kf.setImage(with: URL(string: realMyBadgeData[indexPath.row]["imageUrl"] ?? ""))
         
         return resultCell
     }

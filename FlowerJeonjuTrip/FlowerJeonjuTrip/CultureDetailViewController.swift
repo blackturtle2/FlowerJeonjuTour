@@ -12,6 +12,7 @@ import Kingfisher
 import SWXMLHash
 import ActiveLabel
 import SafariServices
+import Toaster
 
 class CultureDetailViewController: UIViewController {
     
@@ -241,22 +242,26 @@ class CultureDetailViewController: UIViewController {
     
     // MARK: 투어 뱃지 받기 버튼 액션 function
     @IBAction func actionButtonGetTourBadge(_ sender: UIButton) {
-//        guard let realCultureView = self.cultureView else { return }
         guard let realCultureImageData = self.cultureImageData else { return }
         guard let realSid = self.sid else { return }
         guard let realTitle = self.sTitle else { return }
         
         let alertController = UIAlertController(title: "투어 뱃지 확인", message: "\(realTitle)에 방문하셨나요?\n투어 뱃지를 받으시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
         let alertAction = UIAlertAction(title: "받기", style: .destructive) { (action) in
-            let badgeData = cultureBadgeClass(sid: realSid,
-                                              title: realTitle,
-                                              imageUrl: realCultureImageData[0].fileUrl ?? "")
-            guard var realMyBadge = UserDefaults.standard.object(forKey: "myBadge") as? [cultureBadgeClass] else {
-                UserDefaults.standard.set([badgeData], forKey: "myBadge")
+            let oneBadgeData = ["sid":realSid, "title":realTitle, "imageUrl":realCultureImageData[0].fileUrl ?? ""]
+            
+            if UserDefaults.standard.array(forKey: "myBadge") == nil {
+                UserDefaults.standard.set([oneBadgeData], forKey: "myBadge")
+                Toast.init(text: "뱃지를 받았습니다.").show()
                 return
+            }else {
+                var realMyBadge = UserDefaults.standard.array(forKey: "myBadge") as! [[String:String]]
+                
+                realMyBadge.append(oneBadgeData)
+                UserDefaults.standard.set(realMyBadge, forKey: "myBadge")
+                
+                Toast.init(text: "뱃지를 받았습니다.").show()
             }
-            realMyBadge.append(badgeData)
-            UserDefaults.standard.set(realMyBadge, forKey: "myBadge")
         }
         let alertCancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: nil)
         
