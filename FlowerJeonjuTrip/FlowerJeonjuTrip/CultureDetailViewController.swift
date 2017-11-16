@@ -244,7 +244,7 @@ class CultureDetailViewController: UIViewController {
 //        guard let realCultureView = self.cultureView else { return }
         guard let realCultureImageData = self.cultureImageData else { return }
         guard let realSid = self.sid else { return }
-        guard let realTitle = self.title else { return }
+        guard let realTitle = self.sTitle else { return }
         
         let alertController = UIAlertController(title: "투어 뱃지 확인", message: "\(realTitle)에 방문하셨나요?\n투어 뱃지를 받으시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
         let alertAction = UIAlertAction(title: "받기", style: .destructive) { (action) in
