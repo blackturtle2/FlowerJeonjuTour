@@ -15,5 +15,7 @@ class MyBadgeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageViewMainCover: UIImageView!
     
     var sid: String?
+    var sTitle: String?
+    var fileUrl: String?
     
 }

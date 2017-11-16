@@ -89,6 +89,9 @@ extension MyBadgeViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let realMyBadgeData = self.myBadgeData else { return resultCell }
         
         resultCell.sid = realMyBadgeData[indexPath.row]["sid"]
+        resultCell.sTitle = realMyBadgeData[indexPath.row]["title"]
+        resultCell.fileUrl = realMyBadgeData[indexPath.row]["imageUrl"] ?? ""
+        
         resultCell.labelTitle.text = realMyBadgeData[indexPath.row]["title"]
         resultCell.imageViewMain.kf.setImage(with: URL(string: realMyBadgeData[indexPath.row]["imageUrl"] ?? ""))
 
@@ -101,7 +104,13 @@ extension MyBadgeViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! MyBadgeCollectionViewCell
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CultureDetailViewController") as! CultureDetailViewController
+        nextVC.sid = cell.sid
+        nextVC.sTitle = cell.sTitle
+        nextVC.fileUrl = cell.fileUrl
         
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
 }
