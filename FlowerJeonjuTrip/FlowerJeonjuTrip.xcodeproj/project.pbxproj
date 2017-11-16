@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6E440012937EDD2B2EDDE55C /* Pods_FlowerJeonjuTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA7B37BF8130069315A3DEB /* Pods_FlowerJeonjuTrip.framework */; };
+		FE837D771FBD2238003CB1A7 /* WifiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE837D761FBD2237003CB1A7 /* WifiViewController.swift */; };
+		FE837D791FBD2251003CB1A7 /* ToiletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE837D781FBD2251003CB1A7 /* ToiletViewController.swift */; };
 		FED61E4D1FB96E42003169CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E4C1FB96E42003169CD /* AppDelegate.swift */; };
 		FED61E4F1FB96E42003169CD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED61E4E1FB96E42003169CD /* MainViewController.swift */; };
 		FED61E521FB96E42003169CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FED61E501FB96E42003169CD /* Main.storyboard */; };
@@ -27,6 +29,8 @@
 		B79D4DEAB0A2FFFF7E35F112 /* Pods-FlowerJeonjuTrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlowerJeonjuTrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlowerJeonjuTrip/Pods-FlowerJeonjuTrip.release.xcconfig"; sourceTree = "<group>"; };
 		BE82B4BB1E8E15D1FC021E4F /* Pods-FlowerJeonjuTrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlowerJeonjuTrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlowerJeonjuTrip/Pods-FlowerJeonjuTrip.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA7B37BF8130069315A3DEB /* Pods_FlowerJeonjuTrip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlowerJeonjuTrip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE837D761FBD2237003CB1A7 /* WifiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiViewController.swift; sourceTree = "<group>"; };
+		FE837D781FBD2251003CB1A7 /* ToiletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToiletViewController.swift; sourceTree = "<group>"; };
 		FED61E491FB96E42003169CD /* FlowerJeonjuTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowerJeonjuTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FED61E4C1FB96E42003169CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FED61E4E1FB96E42003169CD /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +111,8 @@
 				FED61E681FBC8CAC003169CD /* CultureDetailCollectionViewCell.swift */,
 				FED61E6A1FBCAE31003169CD /* MyBadgeViewController.swift */,
 				FED61E6C1FBCAFA7003169CD /* MyBadgeCollectionViewCell.swift */,
+				FE837D761FBD2237003CB1A7 /* WifiViewController.swift */,
+				FE837D781FBD2251003CB1A7 /* ToiletViewController.swift */,
 				FED61E581FB96E42003169CD /* Info.plist */,
 			);
 			path = FlowerJeonjuTrip;
@@ -255,6 +261,8 @@
 				FED61E651FBA0D17003169CD /* DataCenter.swift in Sources */,
 				FED61E4F1FB96E42003169CD /* MainViewController.swift in Sources */,
 				FED61E671FBA0DE8003169CD /* CultureDetailViewController.swift in Sources */,
+				FE837D771FBD2238003CB1A7 /* WifiViewController.swift in Sources */,
+				FE837D791FBD2251003CB1A7 /* ToiletViewController.swift in Sources */,
 				FED61E5F1FB981C0003169CD /* MainTableViewCell.swift in Sources */,
 				FED61E4D1FB96E42003169CD /* AppDelegate.swift in Sources */,
 				FED61E631FBA065A003169CD /* JSSecretKey.swift in Sources */,
