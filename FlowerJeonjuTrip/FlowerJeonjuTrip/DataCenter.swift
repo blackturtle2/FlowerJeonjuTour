@@ -40,6 +40,18 @@ struct cultureBadgeClass {
     var imageUrl: String
 }
 
+struct wifiClass {
+    var instplaceNm: String
+    var posX: String?
+    var posY: String?
+}
+
+struct toiletClass {
+    var instplaceNm: String
+    var posX: String?
+    var posY: String?
+}
+
 class DataCenter {
     
     static let shared = DataCenter()

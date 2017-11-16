@@ -241,12 +241,16 @@ class CultureDetailViewController: UIViewController {
     
     // MARK: 투어 뱃지 받기 버튼 액션 function
     @IBAction func actionButtonGetTourBadge(_ sender: UIButton) {
-        guard let realCultureView = self.cultureView else { return }
+//        guard let realCultureView = self.cultureView else { return }
         guard let realCultureImageData = self.cultureImageData else { return }
+        guard let realSid = self.sid else { return }
+        guard let realTitle = self.title else { return }
         
-        let alertController = UIAlertController(title: "투어 뱃지 확인", message: "\(realCultureView.title)에 방문하셨나요?\n투어 뱃지를 받으시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "투어 뱃지 확인", message: "\(realTitle)에 방문하셨나요?\n투어 뱃지를 받으시겠습니까?", preferredStyle: UIAlertControllerStyle.alert)
         let alertAction = UIAlertAction(title: "받기", style: .destructive) { (action) in
-            let badgeData = cultureBadgeClass(sid: realCultureView.sid, title: realCultureView.title, imageUrl: realCultureImageData[0].fileUrl ?? "")
+            let badgeData = cultureBadgeClass(sid: realSid,
+                                              title: realTitle,
+                                              imageUrl: realCultureImageData[0].fileUrl ?? "")
             guard var realMyBadge = UserDefaults.standard.object(forKey: "myBadge") as? [cultureBadgeClass] else {
                 UserDefaults.standard.set([badgeData], forKey: "myBadge")
                 return
