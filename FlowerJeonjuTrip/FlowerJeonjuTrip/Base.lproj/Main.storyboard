@@ -149,31 +149,6 @@
             </objects>
             <point key="canvasLocation" x="-1598" y="1799"/>
         </scene>
-        <!--맛집 투어-->
-        <scene sceneID="4Ht-yt-xHY">
-            <objects>
-                <viewController id="P69-Ze-WGX" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="djI-VJ-lif">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huA-wd-Qje">
-                                <rect key="frame" x="161" y="323" width="52" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Des-aL-nSI"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="맛집 투어" id="Xyh-2a-OHa"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Qa5-sq-zO3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-782" y="1799"/>
-        </scene>
         <!--마이 뱃지-->
         <scene sceneID="jyw-vy-afc">
             <objects>
@@ -650,7 +625,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="Laq-M3-xTb" kind="relationship" relationship="viewControllers" id="nJU-zn-Itk"/>
-                        <segue destination="8VK-0F-ERD" kind="relationship" relationship="viewControllers" id="G3f-X1-ZFg"/>
                         <segue destination="qkc-8P-C1a" kind="relationship" relationship="viewControllers" id="v4z-Cg-S7E"/>
                         <segue destination="ZjP-SC-Sqd" kind="relationship" relationship="viewControllers" id="SHk-yC-aRH"/>
                         <segue destination="U1b-9J-lfR" kind="relationship" relationship="viewControllers" id="HUZ-w7-FFj"/>
@@ -707,34 +681,10 @@
             </objects>
             <point key="canvasLocation" x="175" y="1030"/>
         </scene>
-        <!--맛집-->
-        <scene sceneID="NM9-hA-v0g">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8VK-0F-ERD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="맛집" image="cutlery" id="mlf-mh-hwO"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="hbE-Og-DGw">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.93725490199999995" green="0.18039215689999999" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="P69-Ze-WGX" kind="relationship" relationship="rootViewController" id="OgI-P8-Eo3"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dgs-ly-a68" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-780.79999999999995" y="1029.9850074962519"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Shape" width="8" height="12"/>
         <image name="badge_cover_image" width="256" height="256"/>
-        <image name="cutlery" width="25" height="23"/>
         <image name="flower_header" width="375" height="211"/>
         <image name="flower_image" width="134" height="161"/>
         <image name="flower_image_square" width="134" height="134"/>

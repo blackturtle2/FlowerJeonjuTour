@@ -232,12 +232,13 @@ class MainViewController: UIViewController {
             for item in self.cultureTraditionalList { // 전통시설
                 self.getShowImageOfCultureListOf(typeCode: .traditional, dataSid: self.cultureTraditionalList[item.number].sid, number: item.number)
             }
-            for item in self.cultureCenterList { // 문화센터
-                self.getShowImageOfCultureListOf(typeCode: .center, dataSid: self.cultureCenterList[item.number].sid, number: item.number)
-            }
-            for item in self.cultureLibraryList { // 도서관
-                self.getShowImageOfCultureListOf(typeCode: .library, dataSid: self.cultureLibraryList[item.number].sid, number: item.number)
-            }
+//            이미지 API의 트래픽 문제가 지속적으로 발생하여, 문화센터와 도서관 제거
+//            for item in self.cultureCenterList { // 문화센터
+//                self.getShowImageOfCultureListOf(typeCode: .center, dataSid: self.cultureCenterList[item.number].sid, number: item.number)
+//            }
+//            for item in self.cultureLibraryList { // 도서관
+//                self.getShowImageOfCultureListOf(typeCode: .library, dataSid: self.cultureLibraryList[item.number].sid, number: item.number)
+//            }
             
         }
         
@@ -293,7 +294,6 @@ class MainViewController: UIViewController {
             
             // UI
             DispatchQueue.main.async {
-//                self.mainTableView.reloadData()
                 switch typeCode {
                 case .culture:
                     if let cell = self.mainTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? MainTableViewCell {
@@ -326,7 +326,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     // tableView: Section 개수
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 2 // 이미지 API의 트래픽 문제가 지속적으로 발생하여, 문화센터와 도서관 제거
     }
     
     // tableView: Section 헤더 타이틀
