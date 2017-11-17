@@ -33,13 +33,6 @@ struct cultureImageClass {
     var thumbUrl: String?
 }
 
-// 뱃지 발급 클래스
-struct cultureBadgeClass {
-    var sid: String
-    var title: String
-    var imageUrl: String
-}
-
 struct wifiClass {
     var instplaceNm: String
     var posX: String?
