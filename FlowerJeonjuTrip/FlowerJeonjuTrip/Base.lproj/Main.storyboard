@@ -134,7 +134,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="꽃심전주투어" id="PWL-eo-wjC">
                         <barButtonItem key="backBarButtonItem" title=" " id="flg-Xf-5nD"/>
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="information" id="YYD-DL-qzp">
+                        <barButtonItem key="leftBarButtonItem" image="information" id="YYD-DL-qzp">
                             <connections>
                                 <action selector="actionNaviInfoButton:" destination="BYZ-38-t0r" id="hxz-i2-whH"/>
                             </connections>
