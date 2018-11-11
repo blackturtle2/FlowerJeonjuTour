@@ -130,7 +130,6 @@
 				FED61E461FB96E42003169CD /* Frameworks */,
 				FED61E471FB96E42003169CD /* Resources */,
 				AA3ED6EB439890E5A65A4A60 /* [CP] Embed Pods Frameworks */,
-				97AA0B12CD36C120023BBE7A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -189,21 +188,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		97AA0B12CD36C120023BBE7A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FlowerJeonjuTrip/Pods-FlowerJeonjuTrip-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		AA3ED6EB439890E5A65A4A60 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
