@@ -1,2 +1,2 @@
-# FlowerJeonjuTour
-꽃심 전주 ~여행~ 투어
+# HeyJeonju
+헤이 전주 프로젝트
